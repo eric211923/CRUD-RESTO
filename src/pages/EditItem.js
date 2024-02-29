@@ -92,6 +92,7 @@ const UpdateForm = ({ handleUpdate }) => {
                 onChange={handleChange}
               >
                 <option value="">Select category</option>
+                <option value="Others">Others</option>
                 <option value="Sandwiches">Sandwiches</option>
                 <option value="Sides">Sides</option>
                 <option value="Beverage">Beverage</option>
@@ -118,6 +119,7 @@ const UpdateForm = ({ handleUpdate }) => {
                 onChange={handleChange}
               >
                 <option value="">Select size</option>
+                <option value="N/A">N/A</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
