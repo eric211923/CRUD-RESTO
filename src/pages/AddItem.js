@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import database from "../config/firebase-Config";
 import { ref, push, set } from "firebase/database";
 
-const categories = ["", "Sandwiches", "Sides", "Beverage"];
+const categories = ["", "Sandwiches", "Sides", "Beverage", "Others"];
 
 const AddItem = () => {
   const initialState = {
@@ -113,6 +113,7 @@ const AddItem = () => {
                 onChange={handleChange}
               >
                 <option value="">Select size</option>
+                <option value="N/A">N/A</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
