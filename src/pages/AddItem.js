@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { ref, push, onValue, set } from "firebase/database";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
 import database from "../config/firebase-Config";
+import { ref, push, set } from "firebase/database";
+
+const categories = ["", "Sandwiches", "Sides", "Beverage"];
 
 const AddItem = () => {
   const initialState = {
@@ -16,37 +18,11 @@ const AddItem = () => {
   };
 
   const [formData, setFormData] = useState(initialState);
-  const { id } = useParams();
-
-  useEffect(() => {
-    const fetchItemData = async () => {
-      const itemsRef = ref(database, `Items/${id}`);
-
-      if (id) {
-        try {
-          const itemRef = ref(itemsRef, id);
-          const snapshot = await onValue(itemRef);
-
-          if (snapshot.exists()) {
-            setFormData({ ...snapshot.val() });
-          } else {
-            toast.error("Item not found.");
-          }
-        } catch (error) {
-          console.error("Error fetching item data:", error);
-          console.error("Error details:", error.details);
-        }
-      }
-    };
-
-    fetchItemData();
-  }, [id]);
+  const navigate = useNavigate();
+  const id = useParams().id;
 
   const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -92,22 +68,17 @@ const AddItem = () => {
       }
 
       setFormData(initialState);
-
-      toast.success(
-        id ? "Item Updated Successfully" : "Item Added Successfully"
-      );
+      toast.success("Item Added Successfully");
+      navigate("/admin");
     } catch (error) {
-      console.error(
-        `Error ${id ? "updating" : "adding"} item to database:`,
-        error
-      );
+      console.error("Error adding item to database:", error);
       toast.error("An error occurred. Please try again later.");
     }
   };
 
   return (
     <div className="container mt-5 text-center">
-      <h2>{id ? "Edit Item" : "Add Item"}</h2>
+      <h2>Add Item</h2>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <Form onSubmit={handleSubmit}>
@@ -115,16 +86,16 @@ const AddItem = () => {
               <Form.Label>Category:</Form.Label>
               <Form.Select
                 name="category"
-                value={formData.category || ""}
+                value={formData.category}
                 onChange={handleChange}
               >
-                <option value="">Select category</option>
-                <option value="Sandwiches">Sandwiches</option>
-                <option value="Sides">Sides</option>
-                <option value="Beverage">Beverage</option>
+                {categories.map((cat, index) => (
+                  <option key={index} value={cat}>
+                    {cat || "Select category"}
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Product Name:</Form.Label>
               <Form.Control
@@ -134,7 +105,6 @@ const AddItem = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Size:</Form.Label>
               <Form.Select
@@ -148,7 +118,6 @@ const AddItem = () => {
                 <option value="large">Large</option>
               </Form.Select>
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Price:</Form.Label>
               <Form.Control
@@ -158,7 +127,6 @@ const AddItem = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Cost:</Form.Label>
               <Form.Control
@@ -168,7 +136,6 @@ const AddItem = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Stock:</Form.Label>
               <Form.Control
@@ -178,9 +145,8 @@ const AddItem = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
             <Button className="mt-3 w-100" type="submit">
-              {id ? "Update Item" : "Add Item"}
+              Add Item
             </Button>
           </Form>
         </div>

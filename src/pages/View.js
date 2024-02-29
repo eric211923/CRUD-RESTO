@@ -1,92 +1,93 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ref, onValue } from "firebase/database";
+import { useParams, useLocation, Link } from "react-router-dom";
+import { ref, get } from "firebase/database";
 import database from "../config/firebase-Config";
+import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import "../App.css";
 
-const initialState = {
-  category: "",
-  name: "",
-  selectedSize: "",
-  prices: "",
-  cost: "",
-  stock: "",
-};
+const View = ({ handleView }) => {
+  const location = useLocation();
 
-const View = () => {
-  const [item, setItem] = useState(initialState);
   const { id } = useParams();
 
-  useEffect(() => {
-    const itemRef = ref(database, `items/${id}`);
+  const [formState, setFormState] = useState({
+    category: "",
+    name: "",
+    selectedSize: "",
+    prices: "",
+    cost: "",
+    stock: "",
+  });
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        await onValue(itemRef, (snapshot) => {
+        if (location.state && location.state.itemData) {
+          setFormState(location.state.itemData);
+        } else {
+          const itemRef = ref(database, `Items/${id}`);
+          const snapshot = await get(itemRef);
+
           if (snapshot.exists()) {
-            const itemData = snapshot.val();
-            setItem({
-              category: itemData.child("category").val() || "",
-              name: itemData.child("name").val() || "",
-              selectedSize: itemData.child("selectedSize").val() || "",
-              prices: itemData.child("prices").val() || "",
-              cost: itemData.child("cost").val() || "",
-              stock: itemData.child("stock").val() || "",
-            });
+            setFormState(snapshot.val());
           } else {
-            console.log("Document does not exist for ID:", id);
-            setItem(initialState);
+            console.log("Item not found");
           }
-        });
+        }
       } catch (error) {
-        console.error("Error getting document:", error);
-        setItem(initialState);
+        toast.error("Error fetching item data:", error);
       }
     };
 
     fetchData();
-  }, [id]);
-
-  console.log("item", item);
+  }, [id, location.state]);
 
   return (
     <div className="card">
       <div className="card-header text-center">
-        <h2>View Item</h2>
-      </div>
-      <div className="container">
-        <strong>ID</strong>
-        <span>{id}</span>
-        <br />
-        <br />
-        {/* Check if item exists before accessing its properties */}
-        {item && (
-          <>
-            <strong>Category</strong>
-            <span>{item.category}</span>
-            <br />
-            <br />
-            <strong>Name</strong>
-            <span>{item.name}</span>
-            <br />
-            <br />
-            <strong>Sizes</strong>
-            <span>{item.selectedSize}</span>
-            <br />
-            <br />
-            <strong>Price</strong>
-            <span>{item.prices}</span>
-            <br />
-            <br />
-            <strong>Cost</strong>
-            <span>{item.cost}</span>
-            <br />
-            <br />
-            <strong>Stock</strong>
-            <span>{item.stock}</span>
-            <br />
-            <br />
-          </>
-        )}
+        <div className="col-md-6"></div>
+        <div className="container mt-5 text-center">
+          <div className="row justify-content-center">
+            <h2>View Item</h2>
+            {formState && (
+              <>
+                <strong>Category:</strong>
+                <span>{formState.category}</span>
+                <br />
+                <br />
+                <strong>Name:</strong>
+                <span>{formState.name}</span>
+                <br />
+                <br />
+                <strong>Sizes:</strong>
+                <span>{formState.selectedSize}</span>
+                <br />
+                <br />
+                <strong>Price:</strong>
+                <span>{formState.prices}</span>
+                <br />
+                <br />
+                <strong>Cost:</strong>
+                <span>{formState.cost}</span>
+                <br />
+                <br />
+                <strong>Stock:</strong>
+                <span>{formState.stock}</span>
+                <br />
+                <br />
+                <Button
+                  className="mt-3 w-40 mx-auto"
+                  as={Link}
+                  to="/Admin"
+                  exact="true"
+                >
+                  Close
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
