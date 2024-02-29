@@ -10,24 +10,24 @@ export default function ProductCarousel() {
     <div className="container-fluid text-dark min-vw-100 p-3 p-md-5 py-5 py-lg-5">
       <div className="row">
         <div className="col-md-6 my-lg-auto mt-md-5">
-          <Carousel data-bs-theme="dark">
+          <Carousel style={{ height: "400px" }} data-bs-theme="dark">
             <Carousel.Item>
               <img
-                className="d-block  img-fluid "
+                className="d-block w-100 h-100 img-fluid"
                 src={image1}
                 alt="First slide"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block  img-fluid "
+                className="d-block w-100 h-100 img-fluid"
                 src={image2}
                 alt="Second slide"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block  img-fluid"
+                className="d-block w-100 h-100 img-fluid"
                 src={image3}
                 alt="Third slide"
               />
