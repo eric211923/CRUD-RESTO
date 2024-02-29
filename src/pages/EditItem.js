@@ -3,10 +3,11 @@ import { Form, Button } from "react-bootstrap";
 import { set, ref, get } from "firebase/database";
 import database from "../config/firebase-Config";
 import { toast } from "react-toastify";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 
 const UpdateForm = ({ handleUpdate }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [formState, setFormState] = useState({
@@ -69,6 +70,7 @@ const UpdateForm = ({ handleUpdate }) => {
         handleUpdate(formState);
       } else {
         toast.success("Item Updated Successfully!");
+        navigate("/admin");
       }
     } catch (error) {
       toast.error("Error updating item:", error);
