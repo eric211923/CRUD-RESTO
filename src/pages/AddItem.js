@@ -22,7 +22,24 @@ const AddItem = () => {
   const id = useParams().id;
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const checkIfHasSizesIsDisabled = () => {
+    if (formData.category === "" || formData.category === "Others") {
+      if (formData.selectedSize !== "") {
+        setFormData({
+          ...formData,
+          selectedSize: "",
+        });
+      }
+      return true;
+    }
+
+    return false;
   };
 
   const handleSubmit = async (e) => {
@@ -30,14 +47,7 @@ const AddItem = () => {
 
     const { category, name, selectedSize, prices, cost, stock } = formData;
 
-    if (
-      !category ||
-      !name ||
-      !selectedSize ||
-      isNaN(prices) ||
-      isNaN(cost) ||
-      isNaN(stock)
-    ) {
+    if (!category || !name || isNaN(prices) || isNaN(cost) || isNaN(stock)) {
       toast.error("Please fill in valid values for each input field.");
       return;
     }
@@ -111,9 +121,9 @@ const AddItem = () => {
                 name="selectedSize"
                 value={formData.selectedSize || ""}
                 onChange={handleChange}
+                disabled={checkIfHasSizesIsDisabled()}
               >
                 <option value="">Select size</option>
-                <option value="N/A">N/A</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>

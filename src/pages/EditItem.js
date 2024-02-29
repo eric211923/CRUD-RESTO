@@ -50,6 +50,20 @@ const UpdateForm = ({ handleUpdate }) => {
     }));
   };
 
+  const checkIfHasSizesIsDisabled = () => {
+    if (formState.category === "" || formState.category === "Others") {
+      if (formState.selectedSize !== "") {
+        setFormState({
+          ...formState,
+          selectedSize: "",
+        });
+      }
+      return true;
+    }
+
+    return false;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -117,9 +131,9 @@ const UpdateForm = ({ handleUpdate }) => {
                 value={formState.selectedSize || ""}
                 required
                 onChange={handleChange}
+                disabled={checkIfHasSizesIsDisabled()}
               >
                 <option value="">Select size</option>
-                <option value="N/A">N/A</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
