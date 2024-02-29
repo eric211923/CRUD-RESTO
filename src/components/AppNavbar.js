@@ -2,14 +2,17 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 import "../App.css";
 
 function AppNavbar() {
   return (
-    <Navbar className="ms-auto" bg="light" variant="light">
+    <Navbar className="Nav-name" bg="light" variant="light" fluid>
       <div className="container-fluid">
         <Nav.Link as={NavLink} to="/" exact="true">
-          <Navbar.Brand>UTAKpos</Navbar.Brand>
+          <Navbar.Brand>
+            <img src={logo} alt="logo" fluid />
+          </Navbar.Brand>
         </Nav.Link>
         <Nav className="ms-auto">
           <Nav.Link as={NavLink} to="/" exact="true">

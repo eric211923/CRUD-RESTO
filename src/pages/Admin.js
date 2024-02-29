@@ -50,7 +50,7 @@ const ViewMenu = () => {
 
       {/* Table displaying menu items */}
       <div className="table-responsive">
-        <Table className="mt-3" striped bordered hover>
+        <Table className="mt-3 " striped bordered hover>
           {/* Table headers */}
           <thead>
             <tr className="text-center">

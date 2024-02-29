@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import image1 from "../assets/image1.jpg";
 import image2 from "../assets/image2.jpg";
 import image3 from "../assets/image3.jpg";
+import "../App.css";
 
 export default function ProductCarousel() {
   return (
@@ -12,21 +13,21 @@ export default function ProductCarousel() {
           <Carousel data-bs-theme="dark">
             <Carousel.Item>
               <img
-                className="d-block w-100 img-fluid rounded"
+                className="d-block  img-fluid "
                 src={image1}
                 alt="First slide"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100 img-fluid rounded"
+                className="d-block  img-fluid "
                 src={image2}
                 alt="Second slide"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100 img-fluid rounded"
+                className="d-block  img-fluid"
                 src={image3}
                 alt="Third slide"
               />
@@ -42,7 +43,7 @@ export default function ProductCarousel() {
             channels as your customers can effortlessly add items to their cart
             and check out on your website
           </p>
-          <Link to="/products" className="btn btn-primary">
+          <Link to="/" className="btn btn-primary">
             Buy Now!
           </Link>
         </div>
