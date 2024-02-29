@@ -65,11 +65,11 @@ const View = ({ handleView }) => {
                 <br />
                 <br />
                 <strong>Price:</strong>
-                <span>{formState.prices}</span>
+                <span>{parseFloat(formState.prices).toFixed(2)}</span>
                 <br />
                 <br />
                 <strong>Cost:</strong>
-                <span>{formState.cost}</span>
+                <span>{parseFloat(formState.cost).toFixed(2)}</span>
                 <br />
                 <br />
                 <strong>Stock:</strong>

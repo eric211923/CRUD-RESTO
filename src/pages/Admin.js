@@ -73,8 +73,12 @@ const ViewMenu = () => {
                 <td>{data.category}</td>
                 <td>{data.name}</td>
                 <td>{data.selectedSize}</td>
-                <td>{data.prices && data.prices ? data.prices : "N/A"}</td>
-                <td>{data.cost}</td>
+                <td>
+                  {parseFloat(
+                    data.prices && data.prices ? data.prices : "N/A"
+                  ).toFixed(2)}
+                </td>
+                <td>{parseFloat(data.cost).toFixed(2)}</td>
                 <td>
                   {data.stock && data.stock && data.stock ? data.stock : "N/A"}
                 </td>
