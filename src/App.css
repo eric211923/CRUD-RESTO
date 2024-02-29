@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+.Navbar {
+  width: 100%;
+}
+
+.Navbar.Brand {
+   color: #007bff;
+}
+
 .card {
   width: 300px; 
   margin: 20px auto;
