@@ -4,6 +4,13 @@ import database from "../config/firebase-Config";
 import { ref, get, remove } from "firebase/database";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faEdit,
+  faTrash,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ViewMenu = () => {
   const [menuData, setMenu] = useState([]);
@@ -51,9 +58,9 @@ const ViewMenu = () => {
       {/* Table displaying menu items */}
       <div className="table-responsive">
         <Link to="/add">
-          <Button variant="primary">
+          <Button variant="success">
             Add
-            <i className="bi bi-plus"></i>
+            <FontAwesomeIcon icon={faPlus} className="mr-1" />
           </Button>
         </Link>
         <Table className="mt-3 " striped bordered hover>
@@ -99,6 +106,7 @@ const ViewMenu = () => {
                       }}
                     >
                       <Button variant="primary" className="mx-1">
+                        <FontAwesomeIcon icon={faEdit} className="mr-1" />
                         Edit
                       </Button>
                     </Link>
@@ -108,11 +116,13 @@ const ViewMenu = () => {
                       className="mx-1"
                       onClick={() => handleDeleteItem(data.id)}
                     >
+                      <FontAwesomeIcon icon={faTrash} className="mr-2" />
                       Delete
                     </Button>
 
                     <Link to={`/view/${data.id}`}>
                       <Button variant="secondary" className="mx-1">
+                        <FontAwesomeIcon icon={faEye} className="ml-1" />
                         View
                       </Button>
                     </Link>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import database from "../config/firebase-Config";
 import { ref, push, set } from "firebase/database";
 
@@ -88,6 +88,13 @@ const AddItem = () => {
 
   return (
     <div className="container mt-5 text-center">
+      <div className="row justify-content-end">
+        <div className="col-auto">
+          <Link to={`/admin`}>
+            <i className="bi bi-x bi-smaller"></i>
+          </Link>
+        </div>
+      </div>
       <h2>Add Item</h2>
       <div className="row justify-content-center">
         <div className="col-md-6">

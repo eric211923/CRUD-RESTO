@@ -93,6 +93,13 @@ const UpdateForm = ({ handleUpdate }) => {
 
   return (
     <div className="container mt-5 text-center">
+      <div className="row justify-content-end">
+        <div className="col-auto">
+          <Link to={`/admin`}>
+            <i className="bi bi-x bi-smaller"></i>
+          </Link>
+        </div>
+      </div>
       <h2>Edit Item</h2>
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -173,17 +180,8 @@ const UpdateForm = ({ handleUpdate }) => {
               />
             </Form.Group>
 
-            <Button className="mt-3 w-40 ms-auto me-5" type="submit">
-              Update
-            </Button>
-
-            <Button
-              className="mt-3 w-40 ms-auto me-5"
-              as={Link}
-              to="/Admin"
-              exact="true"
-            >
-              Cancel
+            <Button className="mt-3 w-100 ms-auto me-5" type="submit">
+              Update Item
             </Button>
           </Form>
         </div>
