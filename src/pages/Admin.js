@@ -50,6 +50,12 @@ const ViewMenu = () => {
 
       {/* Table displaying menu items */}
       <div className="table-responsive">
+        <Link to="/add">
+          <Button variant="primary">
+            Add
+            <i className="bi bi-plus"></i>
+          </Button>
+        </Link>
         <Table className="mt-3 " striped bordered hover>
           {/* Table headers */}
           <thead>

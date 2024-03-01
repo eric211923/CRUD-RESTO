@@ -21,9 +21,6 @@ function AppNavbar() {
           <Nav.Link as={NavLink} to="/admin" exact="true">
             Dashboard
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/add" exact="true">
-            Add Item
-          </Nav.Link>
         </Nav>
       </div>
     </Navbar>
